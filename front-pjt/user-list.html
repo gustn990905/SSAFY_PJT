@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자 목록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+<div class="container">
+<a class="navbar-brand">YumYumCoach</a>
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="main.html">홈</a></li>
+<li class="nav-item"><a class="nav-link" href="diet.html">식단관리</a></li>
+<li class="nav-item"><a class="nav-link" href="community.html">커뮤니티</a></li>
+<li class="nav-item"><a class="nav-link" href="challenge.html">챌린지</a></li>
+<li class="nav-item"><a class="nav-link" href="ai.html">AI 코칭</a></li>
+<li class="nav-item"><a class="nav-link" href="profile.html">프로필</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="logout()">로그아웃</a></li>
+</ul>
+</div>
+</nav>
+<div class="container mt-5">
+<h2>사용자 목록</h2>
+<input type="text" id="userSearch" class="form-control mb-3" placeholder="사용자 검색 (이름 또는 ID)" onkeyup="filterUsers()">
+<button id="showFollowing" class="btn btn-secondary mb-3" onclick="toggleFollowing()">내 팔로우 리스트</button>
+<ul id="userList" class="list-group"></ul>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+<div id="successToast" class="toast" role="alert">
+<div class="toast-header">
+<strong class="me-auto">알림</strong>
+<button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+</div>
+<div class="toast-body"></div>
+</div>
+</div>
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/follow.js"></script>
+<script src="js/main.js"></script>
+<script>
+var currentFilter = "";
+var currentShowFollowing = false;
+
+function refreshUsers(){
+    loadUsers(currentFilter, currentShowFollowing);
+}
+
+window.onload=function(){
+    // 더미 사용자 생성
+    let users = getData("users") || []
+    if(users.length < 20){
+        let dummyUsers = [
+            {id:"user1", pw:"123", name:"김철수", height:"170", weight:"70"},
+            {id:"user2", pw:"123", name:"이영희", height:"160", weight:"50"},
+            {id:"user3", pw:"123", name:"박민수", height:"175", weight:"80"},
+            {id:"user4", pw:"123", name:"정수진", height:"165", weight:"55"},
+            {id:"user5", pw:"123", name:"홍길동", height:"180", weight:"85"},
+            {id:"user6", pw:"123", name:"김영수", height:"172", weight:"75"},
+            {id:"user7", pw:"123", name:"박지현", height:"158", weight:"48"},
+            {id:"user8", pw:"123", name:"이민준", height:"178", weight:"82"},
+            {id:"user9", pw:"123", name:"최서연", height:"162", weight:"52"},
+            {id:"user10", pw:"123", name:"장현우", height:"176", weight:"78"},
+            {id:"user11", pw:"123", name:"윤지아", height:"159", weight:"49"},
+            {id:"user12", pw:"123", name:"강민재", height:"174", weight:"76"},
+            {id:"user13", pw:"123", name:"조은비", height:"161", weight:"51"},
+            {id:"user14", pw:"123", name:"임준혁", height:"179", weight:"83"},
+            {id:"user15", pw:"123", name:"한소희", height:"163", weight:"53"},
+            {id:"user16", pw:"123", name:"오태영", height:"177", weight:"79"},
+            {id:"user17", pw:"123", name:"서미라", height:"160", weight:"50"},
+            {id:"user18", pw:"123", name:"신동훈", height:"173", weight:"74"},
+            {id:"user19", pw:"123", name:"문지은", height:"164", weight:"54"},
+            {id:"user20", pw:"123", name:"양승민", height:"181", weight:"87"}
+        ]
+        setData("users", dummyUsers)
+    }
+    loadUsers();
+};
+</script>
+</body>
+</html>
